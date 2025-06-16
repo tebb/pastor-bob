@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastor Bob's Disco Dance</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c;
+            /* Dark background for disco feel */
+            overflow: hidden;
+            /* Prevent scrollbars due to rotations */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            position: relative;
+        }
+
+        /* --- Disco Lights Text Animation --- */
+        .disco-text-container {
+            position: absolute;
+            top: 5%;
+            /* Adjusted vertical position to be higher */
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            /* Changed to row for side-by-side */
+            justify-content: space-around;
+            /* Distribute words horizontally */
+            align-items: center;
+            /* Align words at the same vertical height */
+            pointer-events: none;
+            /* Allows clicks to pass through to elements below */
+            z-index: 10;
+            /* Ensure text is above Bob */
+        }
+
+        .disco-word {
+            display: flex;
+            /* margin-bottom removed as they are now side-by-side */
+        }
+
+        .disco-letter {
+            font-size: clamp(2rem, 8vw, 6rem);
+            /* Responsive font size */
+            font-weight: 900;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            animation: flash 1.5s infinite alternate;
+            display: inline-block;
+            padding: 0 5px;
+            border-radius: 5px;
+            margin: 0 2px;
+            box-shadow: 0 0 10px 5px rgba(255, 0, 255, 0.5);
+            /* Initial glow */
+        }
+
+        /* Assign different colors and animation delays for a varied flashing effect */
+        .disco-word:nth-child(1) .disco-letter:nth-child(1) {
+            color: #ff00ff;
+            animation-delay: 0s;
+            box-shadow: 0 0 10px 5px #ff00ff;
+        }
+
+        .disco-word:nth-child(1) .disco-letter:nth-child(2) {
+            color: #00ffff;
+            animation-delay: 0.1s;
+            box-shadow: 0 0 10px 5px #00ffff;
+        }
+
+        .disco-word:nth-child(1) .disco-letter:nth-child(3) {
+            color: #ffff00;
+            animation-delay: 0.2s;
+            box-shadow: 0 0 10px 5px #ffff00;
+        }
+
+        .disco-word:nth-child(1) .disco-letter:nth-child(4) {
+            color: #ff8000;
+            animation-delay: 0.3s;
+            box-shadow: 0 0 10px 5px #ff8000;
+        }
+
+        .disco-word:nth-child(1) .disco-letter:nth-child(5) {
+            color: #00ff00;
+            animation-delay: 0.4s;
+            box-shadow: 0 0 10px 5px #00ff00;
+        }
+
+        .disco-word:nth-child(1) .disco-letter:nth-child(6) {
+            color: #ff0000;
+            animation-delay: 0.5s;
+            box-shadow: 0 0 10px 5px #ff0000;
+        }
+
+        .disco-word:nth-child(1) .disco-letter:nth-child(7) {
+            color: #8000ff;
+            animation-delay: 0.6s;
+            box-shadow: 0 0 10px 5px #8000ff;
+        }
+
+        .disco-word:nth-child(2) .disco-letter:nth-child(1) {
+            color: #ff0000;
+            animation-delay: 0.7s;
+            box-shadow: 0 0 10px 5px #ff0000;
+        }
+
+        .disco-word:nth-child(2) .disco-letter:nth-child(2) {
+            color: #00ff00;
+            animation-delay: 0.8s;
+            box-shadow: 0 0 10px 5px #00ff00;
+        }
+
+        .disco-word:nth-child(2) .disco-letter:nth-child(3) {
+            color: #0000ff;
+            animation-delay: 0.9s;
+            box-shadow: 0 0 10px 5px #0000ff;
+        }
+
+        .disco-word:nth-child(2) .disco-letter:nth-child(4) {
+            color: #8000ff;
+            animation-delay: 1.0s;
+            box-shadow: 0 0 10px 5px #8000ff;
+        }
+
+        /* Angles for words */
+        #pastor-word {
+            transform: rotate(-5deg);
+            margin-right: 5%;
+            /* Adjust spacing */
+        }
+
+        #bob-word {
+            transform: rotate(10deg);
+            margin-left: 5%;
+            /* Adjust spacing */
+        }
+
+        @keyframes flash {
+
+            0%,
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+            }
+
+            50% {
+                opacity: 0.5;
+                text-shadow: none;
+                box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        /* --- Pastor Bob Figure & Animation --- */
+        .pastor-bob-figure {
+            width: 180px;
+            /* Increased base width for better proportions */
+            height: 60vh;
+            /* Bob takes up 60% of viewport height */
+            position: relative;
+            transform-origin: bottom center;
+            /* For overall sway */
+            animation: dadDanceSway 4s infinite ease-in-out;
+            display: flex;
+            flex-direction: column;
+            /* Use column for stacking, but parts are absolutely positioned */
+            align-items: center;
+            justify-content: flex-end;
+            /* Align body parts to the bottom */
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+            /* Glow effect for Bob */
+        }
+
+        .head {
+            width: 60px;
+            /* Fixed size for head */
+            height: 60px;
+            background-color: #f7d7c4;
+            /* Skin color */
+            border-radius: 50%;
+            position: absolute;
+            top: 15%;
+            /* Position relative to overall figure height */
+            z-index: 2;
+            /* Ensure head is on top */
+            border: 2px solid #5a5a5a;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .body-main {
+            /* Main torso/robe part */
+            width: 120px;
+            /* Base width for torso */
+            height: 50%;
+            /* Take up 50% of parent's height */
+            background-color: #6a05ad;
+            /* Pastor's robe color */
+            border-radius: 40% 40% 10% 10% / 20% 20% 5% 5%;
+            /* Robe shape */
+            position: absolute;
+            top: 25%;
+            /* Position relative to figure to connect with head */
+            border: 2px solid #3d0361;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 1;
+            /* Below head, above arms */
+        }
+
+        .robe-detail {
+            width: 70%;
+            height: 100%;
+            background-color: #8c10e0;
+            border-radius: 40% 40% 10% 10% / 20% 20% 5% 5%;
+            position: absolute;
+            top: 0;
+            left: 15%;
+            border-left: 1px solid #6a05ad;
+            border-right: 1px solid #6a05ad;
+        }
+
+        .arm {
+            width: 40px;
+            /* Arm width */
+            height: 35%;
+            /* Height relative to figure */
+            background-color: #6a05ad;
+            /* Robe color */
+            border-radius: 20px;
+            /* More like a sleeve */
+            position: absolute;
+            top: 30%;
+            /* Position to connect to upper body */
+            transform-origin: top center;
+            border: 2px solid #3d0361;
+            z-index: 0;
+            /* Behind the main body part */
+        }
+
+        .left-arm {
+            left: 10%;
+            /* Adjust to attach to left side of body */
+            transform: rotate(10deg);
+            animation: leftArmDance 2s infinite ease-in-out;
+        }
+
+        .right-arm {
+            right: 10%;
+            /* Adjust to attach to right side of body */
+            transform: rotate(-10deg);
+            animation: rightArmDance 2s infinite ease-in-out;
+        }
+
+        .hand {
+            width: 30px;
+            height: 30px;
+            background-color: #f7d7c4;
+            /* Skin color */
+            border-radius: 50%;
+            position: absolute;
+            bottom: -15px;
+            /* Relative to arm */
+            left: 5px;
+            /* Adjust within arm */
+            border: 2px solid #5a5a5a;
+        }
+
+        .leg {
+            width: 40px;
+            /* Leg width */
+            height: 30%;
+            /* Height relative to figure */
+            background-color: #4a4a4a;
+            /* Dark pants/inner robe */
+            border-radius: 10px;
+            position: absolute;
+            bottom: 0;
+            /* Aligned to the bottom of the figure container */
+            transform-origin: top center;
+            border: 2px solid #2a2a2a;
+            z-index: 0;
+        }
+
+        .left-leg {
+            left: 30%;
+            /* Adjust position to be under the body */
+            transform: rotate(-5deg);
+            animation: leftLegDance 2.5s infinite ease-in-out;
+            /* Slower dance */
+        }
+
+        .right-leg {
+            right: 30%;
+            /* Adjust position to be under the body */
+            transform: rotate(5deg);
+            animation: rightLegDance 2.5s infinite ease-in-out;
+            /* Slower dance */
+        }
+
+        .foot {
+            width: 50px;
+            /* Foot width */
+            height: 15px;
+            /* Foot height */
+            background-color: #333;
+            border-radius: 0 0 5px 5px;
+            position: absolute;
+            bottom: -10px;
+            /* Relative to leg */
+            left: -5px;
+            /* Adjust within leg */
+            border: 2px solid #111;
+        }
+
+        /* Adjusted animation keyframes for more variation */
+        @keyframes dadDanceSway {
+
+            0%,
+            100% {
+                transform: translateY(0) rotateY(0deg) translateX(0);
+            }
+
+            20% {
+                transform: translateY(-8px) rotateY(-5deg) translateX(-5px);
+            }
+
+            40% {
+                transform: translateY(0) rotateY(0deg) translateX(0);
+            }
+
+            60% {
+                transform: translateY(8px) rotateY(5deg) translateX(5px);
+            }
+
+            80% {
+                transform: translateY(0) rotateY(0deg) translateX(0);
+            }
+        }
+
+        @keyframes leftArmDance {
+
+            0%,
+            100% {
+                transform: rotate(10deg);
+            }
+
+            25% {
+                transform: rotate(30deg) translateX(5px);
+            }
+
+            50% {
+                transform: rotate(15deg);
+            }
+
+            75% {
+                transform: rotate(35deg) translateX(-5px);
+            }
+        }
+
+        @keyframes rightArmDance {
+
+            0%,
+            100% {
+                transform: rotate(-10deg);
+            }
+
+            25% {
+                transform: rotate(-30deg) translateX(-5px);
+            }
+
+            50% {
+                transform: rotate(-15deg);
+            }
+
+            75% {
+                transform: rotate(-35deg) translateX(5px);
+            }
+        }
+
+        @keyframes leftLegDance {
+
+            0%,
+            100% {
+                transform: rotate(-5deg) translateY(0);
+            }
+
+            30% {
+                transform: rotate(8deg) translateY(-5px);
+            }
+
+            60% {
+                transform: rotate(-10deg) translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .disco-letter {
+                font-size: clamp(1.5rem, 10vw, 4rem);
+                padding: 0 3px;
+            }
+
+            /* Keep angles for words even on small screens as requested */
+            #pastor-word,
+            #bob-word {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .disco-text-container {
+                flex-direction: column;
+                /* Revert to column for stacking words on mobile */
+                align-items: center;
+                top: 5%;
+            }
+
+            .disco-word {
+                margin-bottom: 10px;
+                /* Add space when stacked on mobile */
+            }
+
+            .pastor-bob-figure {
+                height: 50vh;
+                /* Slightly smaller on mobile */
+                width: 120px;
+            }
+
+            /* Adjust positions for smaller Bob on mobile */
+            .head {
+                top: 10%;
+                width: 50px;
+                height: 50px;
+            }
+
+            .body-main {
+                top: 20%;
+                width: 90px;
+            }
+
+            .arm {
+                top: 25%;
+                width: 30px;
+                height: 30%;
+            }
+
+            .left-arm {
+                left: 5%;
+            }
+
+            .right-arm {
+                right: 5%;
+            }
+
+            .hand {
+                width: 25px;
+                height: 25px;
+                bottom: -10px;
+            }
+
+            .leg {
+                width: 30px;
+                height: 25%;
+            }
+
+            .left-leg {
+                left: 25%;
+            }
+
+            .right-leg {
+                right: 25%;
+            }
+
+            .foot {
+                width: 40px;
+                height: 12px;
+                bottom: -8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Disco Lights Text -->
+    <div class="disco-text-container">
+        <div id="pastor-word" class="disco-word">
+            <span class="disco-letter">P</span>
+            <span class="disco-letter">A</span>
+            <span class="disco-letter">S</span>
+            <span class="disco-letter">T</span>
+            <span class="disco-letter">O</span>
+            <span class="disco-letter">R</span>
+        </div>
+        <div id="bob-word" class="disco-word">
+            <span class="disco-letter">B</span>
+            <span class="disco-letter">O</span>
+            <span class="disco-letter">B</span>
+            <span class="disco-letter">!</span>
+        </div>
+    </div>
+
+    <!-- Pastor Bob Figure -->
+    <div class="pastor-bob-figure">
+        <div class="head"></div>
+        <!-- Arms are now positioned relative to the figure, allowing for better layering control -->
+        <div class="arm left-arm">
+            <div class="hand"></div>
+        </div>
+        <div class="arm right-arm">
+            <div class="hand"></div>
+        </div>
+        <div class="body-main">
+            <div class="robe-detail"></div>
+        </div>
+        <div class="leg left-leg">
+            <div class="foot"></div>
+        </div>
+        <div class="leg right-leg">
+            <div class="foot"></div>
+        </div>
+    </div>
+    <div>(from dist)</div>
+
+</body>
+
+</html>
